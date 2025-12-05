@@ -1,0 +1,20 @@
+[
+  {
+    "slug": "midnight-hoodie",
+    "name": "Midnight Hoodie",
+    "short": "Heavy-weight luxury hoodie",
+    "price": "₹2,499",
+    "image": "images/product-hoodie.jpg",
+    "colors": ["Black", "Charcoal", "Midnight Blue"],
+    "amazonLink": "https://www.amazon.in/example-midnight-hoodie"
+  },
+  {
+    "slug": "ice-cap",
+    "name": "Ice Cap Beanie",
+    "short": "Knitted luxury beanie",
+    "price": "₹799",
+    "image": "images/product-beanie.jpg",
+    "colors": ["Black", "Grey"],
+    "amazonLink": "https://www.amazon.in/example-ice-cap"
+  }
+]
