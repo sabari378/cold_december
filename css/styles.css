@@ -13,7 +13,10 @@ body.body-black {
 .container{max-width:1100px;margin:0 auto;padding:0 20px}
 .header-inner{display:flex;align-items:center;justify-content:space-between;padding:18px 0}
 .brand{display:flex;align-items:center;gap:12px}
-.brand img{filter:brightness(0) invert(1)}
+.brand img{
+  height: 100px;  /* slightly bigger */
+  display: block;
+}
 .brand .tag{font-size:13px;color:var(--muted);letter-spacing:1px}
 .nav a{color:var(--muted);margin-left:18px;text-decoration:none;font-size:14px}
 
