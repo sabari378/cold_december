@@ -1,119 +1,150 @@
-/* main.js */
 document.addEventListener("DOMContentLoaded", async () => {
-  const yearEls = document.querySelectorAll("#year, #year2");
-  yearEls.forEach(e => e.textContent = new Date().getFullYear());
+  const CATEGORY_MAP = {
+  men: ["hoodie", "tshirt", "polo", "pants", "shorts", "underwear"],
+  women: ["hoodie", "tshirt", "dress", "pants", "skirt", "activewear"]
+};
 
-  // Load product list on index.html
-  if (document.getElementById("productGrid")) {
+  /* ---------------- CATEGORY NAV ---------------- */
+  const categoryMenu = document.getElementById("categoryMenu");
+  if (categoryMenu) {
+    categoryMenu.innerHTML = "";
+    Object.entries(CATEGORY_MAP).forEach(([gender, categories]) => {
+      const group = document.createElement("div");
+      group.className = "dropdown-group";
+
+      const title = document.createElement("a");
+      title.className = "dropdown-title";
+      title.href = `collection.html?gender=${gender}`;
+      title.textContent = gender;
+      group.appendChild(title);
+
+      const links = document.createElement("div");
+      links.className = "dropdown-links";
+      categories.forEach(cat => {
+        const link = document.createElement("a");
+        link.href = `collection.html?gender=${gender}&category=${cat}`;
+        link.textContent = cat.replace("-", " ");
+        links.appendChild(link);
+      });
+      group.appendChild(links);
+
+      categoryMenu.appendChild(group);
+    });
+  }
+
+
+  /* ---------------- YEAR ---------------- */
+  document.querySelectorAll("#year, #year2")
+    .forEach(e => e.textContent = new Date().getFullYear());
+
+  /* ---------------- TRENDING (HOME) ---------------- */
+  if (document.getElementById("menTrending")) {
     const res = await fetch("products.json");
     const products = await res.json();
-    const grid = document.getElementById("productGrid");
-    products.forEach(p => {
+
+    const menGrid = document.getElementById("menTrending");
+    const womenGrid = document.getElementById("womenTrending");
+
+    products
+      .filter(p => p.trending)
+      .forEach(p => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <a href="product.html?slug=${p.slug}">
+            <img src="${p.image}" alt="${p.name}">
+            <div class="card-body">
+              <h4>${p.name}</h4>
+              <div class="price">${p.price}</div>
+            </div>
+          </a>
+        `;
+        if (p.gender === "men") menGrid.appendChild(card);
+        if (p.gender === "women") womenGrid.appendChild(card);
+      });
+  }
+
+  /* ---------------- COLLECTION PAGE ---------------- */
+
+  /* ---------------- COLLECTION PAGE ---------------- */
+
+if (document.getElementById("collectionGrid")) {
+  const params = new URLSearchParams(window.location.search);
+  const gender = params.get("gender");
+  const category = params.get("category");
+
+  const res = await fetch("products.json");
+  const products = await res.json();
+
+  // Title
+  document.getElementById("collectionTitle").textContent =
+    gender ? `${gender.toUpperCase()} COLLECTION` : "COLLECTION";
+
+  /* ---------- SUBCATEGORY BAR ---------- */
+  const bar = document.getElementById("subcategoryBar");
+  bar.innerHTML = "";
+
+  if (gender && CATEGORY_MAP[gender]) {
+    CATEGORY_MAP[gender].forEach(cat => {
+      const link = document.createElement("a");
+      link.href = `collection.html?gender=${gender}&category=${cat}`;
+      link.textContent = cat.replace("-", " ");
+      if (cat === category) link.classList.add("active");
+      bar.appendChild(link);
+    });
+  }
+
+  /* ---------- PRODUCT GRID ---------- */
+  const grid = document.getElementById("collectionGrid");
+  grid.innerHTML = "";
+
+  products
+    .filter(p =>
+      (!gender || p.gender === gender) &&
+      (!category || p.category === category)
+    )
+    .forEach(p => {
       const card = document.createElement("div");
       card.className = "card";
       card.innerHTML = `
-        <a href="product.html?slug=${encodeURIComponent(p.slug)}" style="color:inherit;text-decoration:none">
+        <a href="product.html?slug=${p.slug}">
           <img src="${p.image}" alt="${p.name}">
           <div class="card-body">
             <h4>${p.name}</h4>
-            <div class="muted">${p.short}</div>
             <div class="price">${p.price}</div>
           </div>
-        </a>`;
+        </a>
+      `;
       grid.appendChild(card);
     });
-  }
-
-  // Product page: read slug from query string and show details
-  if (document.getElementById("productName")) {
-    const params = new URLSearchParams(window.location.search);
-    const slug = params.get("slug");
-    if (!slug) {
-      document.getElementById("productName").textContent = "Product not found";
-      return;
-    }
-    const res = await fetch("products.json");
-    const products = await res.json();
-    const product = products.find(p => p.slug === slug);
-    if (!product) {
-      document.getElementById("productName").textContent = "Product not found";
-      return;
-    }
-
-    document.getElementById("productName").textContent = product.name;
-    document.getElementById("productShort").textContent = product.short;
-    document.getElementById("productPrice").textContent = product.price;
-    document.getElementById("productImage").src = product.image;
-    document.getElementById("productImage").alt = product.name;
-    document.getElementById("metaTitle").textContent = `${product.name} — COLD DECEMBER`;
-    document.getElementById("metaDesc").setAttribute("content", product.short);
-
-    const cp = document.getElementById("colorPicker");
-    product.colors.forEach((c, i) => {
-      const btn = document.createElement("button");
-      btn.textContent = c;
-      if (i === 0) btn.style.outline = "1px solid var(--accent)";
-      btn.addEventListener("click", () => {
-        // give simple selected style
-        Array.from(cp.children).forEach(ch => ch.style.outline = "none");
-        btn.style.outline = "1px solid var(--accent)";
-      });
-      cp.appendChild(btn);
-    });
-
-    const amazonBtn = document.getElementById("amazonBtn");
-    amazonBtn.href = product.amazonLink || "#";
-  }
-});
-// Snow animation
-const canvas = document.getElementById('snowCanvas');
-const ctx = canvas.getContext('2d');
-
-function resizeCanvas() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
 }
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
 
-let flakes = [];
 
-function createFlakes() {
-  for (let i = 0; i < 60; i++) {
-    flakes.push({
+  /* ---------------- SNOW (HOME ONLY) ---------------- */
+  const canvas = document.getElementById("snowCanvas");
+  if (canvas) {
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let flakes = Array.from({ length: 60 }, () => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
       r: Math.random() * 3 + 1,
       d: Math.random() + 1
-    });
+    }));
+
+    setInterval(() => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "rgba(255,255,255,0.9)";
+      ctx.beginPath();
+      flakes.forEach(f => {
+        ctx.moveTo(f.x, f.y);
+        ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+        f.y += f.d;
+        if (f.y > canvas.height) f.y = -10;
+      });
+      ctx.fill();
+    }, 33);
   }
-}
-createFlakes();
-
-function drawSnow() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = "rgba(255,255,255,0.9)";
-  ctx.beginPath();
-
-  flakes.forEach(f => {
-    ctx.moveTo(f.x, f.y);
-    ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2, true);
-  });
-
-  ctx.fill();
-  moveSnow();
-}
-
-function moveSnow() {
-  flakes.forEach(f => {
-    f.y += Math.pow(f.d, 2) + 1;
-    f.x += Math.sin(f.y * 0.01) * 0.5;
-
-    if (f.y > canvas.height) {
-      f.y = -10;
-      f.x = Math.random() * canvas.width;
-    }
-  });
-}
-
-setInterval(drawSnow, 33);
+});
