@@ -32,7 +32,9 @@
 </header>
 
 <main>
-  <section class="hero">
+  <section class="hero" data-hero-images="images/hero.jpg,images/hero2.jpg,images/hero3.jpg">
+    <div class="hero-slides" aria-hidden="true"></div>
+    <div class="hero-dots" role="tablist" aria-label="Hero image selector"></div>
     <canvas id="snowCanvas"></canvas>
 
     <div class="hero-overlay">
@@ -47,14 +49,25 @@
     </div>
   </section>
 
-  <section class="container section">
-    <h2 class="section-title">Men’s Trending</h2>
-    <div id="menTrending" class="grid"></div>
+  <section class="feature-split">
+    <div class="feature-media"></div>
+    <div class="feature-quote">
+      <div class="quote-box">
+        <div class="quote-content">
+          <p>
+            <strong>Cold December</strong><br>
+            Freeze by Design. Freeze by Quality.<br>
+            Designed with intent. Crafted without compromise.
+          </p>
+          <img class="quote-logo" src="images/logo.png" alt="Cold December Logo">
+        </div>
+      </div>
+    </div>
   </section>
 
   <section class="container section">
-    <h2 class="section-title">Women’s Trending</h2>
-    <div id="womenTrending" class="grid"></div>
+    <h2 class="section-title">Trending</h2>
+    <div id="trendingGrid" class="grid trending-grid"></div>
   </section>
 
 <footer class="site-footer">
