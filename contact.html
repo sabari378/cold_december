@@ -4,9 +4,12 @@
   <meta charset="utf-8">
   <title>Contact — COLD DECEMBER</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
+<body class="contact-page">
 
 <header>
   <div class="container header-inner">
@@ -29,15 +32,79 @@
   </div>
 </header>
 
-<main class="container section">
-  <h1 class="section-title">Contact</h1>
-  <p>
-    For orders, collaborations, or press inquiries, reach us at
-    <strong>hello@colddecember.com</strong>.
-  </p>
-  <p>
-    We aim to respond within 2 business days.
-  </p>
+<main class="contact">
+  <section class="contact-hero">
+    <div class="container contact-hero-inner">
+      <h1>Contact Us</h1>
+    </div>
+  </section>
+
+  <section class="contact-panel">
+    <div class="container contact-panel-inner">
+      <div class="contact-copy">
+        <span class="contact-kicker">Get in touch</span>
+        <h2>
+          Let's see what we can <span>create</span>
+          <br>
+          <span>together</span>.
+        </h2>
+        <div class="contact-details">
+          <p><strong>Phone:</strong> +1 (812) 555-0199</p>
+          <p><strong>Email:</strong> hello@colddecember.com</p>
+        </div>
+        <img src="images/35.jpeg" alt="Cold December studio">
+      </div>
+      <form class="contact-form">
+        <label>
+          Your name
+          <input type="text" name="name" placeholder="Your name">
+        </label>
+        <label>
+          Your company
+          <input type="text" name="company" placeholder="Your company">
+        </label>
+        <label>
+          Your email
+          <input type="email" name="email" placeholder="Your email">
+        </label>
+        <label>
+          Subject
+          <input type="text" name="subject" placeholder="Subject">
+        </label>
+        <label>
+          Your message (optional)
+          <textarea name="message" rows="6" placeholder="Tell us about your project"></textarea>
+        </label>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="contact-locations">
+    <div class="container contact-locations-inner">
+      <div>
+        <h4>Corporate HQ</h4>
+        <p>Columbus, Indiana</p>
+      </div>
+      <div>
+        <h4>Design Studio</h4>
+        <p>Columbus, Indiana</p>
+      </div>
+      <div>
+        <h4>Distribution</h4>
+        <p>Columbus, Indiana</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-cta">
+    <div class="container">
+      <div class="contact-cta-card">
+        <h3>Join our team.</h3>
+        <a class="contact-cta-button" href="contact.html">Work Here</a>
+      </div>
+    </div>
+  </section>
 </main>
 
 <footer class="site-footer">
