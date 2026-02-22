@@ -75,7 +75,8 @@ header .container {
 header {
   width: 100%;
   z-index: 50;
-  padding: 20px 0;
+  padding: 16px 0;
+  transition: background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .nav {
@@ -95,34 +96,35 @@ header {
   top: 0;
   left: 0;
   background: transparent;
+  box-shadow: none;
+  border: 0;
 }
 
 /* COLLECTION / OTHER PAGES */
 body:not(.home) header {
   position: relative;
-  background: #ebebeb;
-  border-bottom: 1px solid #e0e0e0;
+  background: rgba(235,235,235,0.92);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.05);
 }
 
 /* NAV COLOR FIX */
-body:not(.home) .nav a {
-  color: #111111;
-}
-
-body:not(.home) .nav .nav-link {
-  color: #111111;
-}
-
 body:not(.home) .nav a,
 body:not(.home) .nav .nav-link {
+  color: #111111;
   padding-bottom: 6px;
   border-bottom: 2px solid transparent;
+  border-radius: 999px;
+  padding: 8px 14px;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
 body:not(.home) .nav a:hover,
 body:not(.home) .nav .nav-link:hover {
   opacity: 1;
   border-bottom-color: #111111;
+  background: rgba(0,0,0,0.05);
 }
 
 body.about-page .nav a[href="about.html"],
@@ -131,10 +133,8 @@ body.contact-page .nav a[href="contact.html"] {
   color: #111111;
   font-weight: 700;
   border-bottom-color: #111111;
+  background: rgba(0,0,0,0.08);
 }
-
-
-
 
 .header-inner {
   display: flex;
@@ -156,12 +156,12 @@ body.contact-page .nav a[href="contact.html"] {
   height: 70px;        /* FIXED → not too big */
   width: auto;
   object-fit: contain;
+  filter: drop-shadow(0 6px 14px rgba(0,0,0,0.12));
 }
-
 /* Tagline */
 .brand .tag {
   font-size: 14px;
-  color: #ffffff;      /* luxury gold */
+  color: #111111;      /* luxury gold */
   text-transform: uppercase;
   letter-spacing: 1.5px;
   margin-top: 3px;
@@ -179,7 +179,7 @@ body.contact-page .nav a[href="contact.html"] {
 
 .nav a,
 .nav .nav-link {
-  color: #ffffff;
+  color: #111111;
   text-decoration: none;
   font-size: 16px;
   font-weight: 500;
@@ -190,7 +190,7 @@ body.contact-page .nav a[href="contact.html"] {
 
 .nav a:hover,
 .nav .nav-link:hover {
-  opacity: 0.7;
+  opacity: 0.85;
 }
 
 .nav .nav-link {
@@ -532,7 +532,6 @@ body.contact-page .nav a[href="contact.html"] {
   height: 320px;
   object-fit: contain;
 }
-
 .trending-card .card-body {
   text-align: left;
   background: #0e0101;
@@ -1586,3 +1585,4 @@ body.contact-page .nav a[href="contact.html"] {
     padding: 40px 28px;
   }
 }
+
